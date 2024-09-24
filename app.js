@@ -38,31 +38,31 @@ app.post("/ussd", (req, res) => {
     1. Confirm
     0. Go Back
     `;
-  } else if (text == "1.1.1") {
+  } else if (text == "1*1*1") {
     response = `END You have requested to purchase a Regular Ticket for GHc700
     You will recieve a mobile money prompt to confirm your purchase
     `;
-  } else if (text == "1.2.1") {
+  } else if (text == "1*2*1") {
     response = `END You have requested to purchase a VIP Ticket for (GHc1000)
     You will recieve a mobile money prompt to confirm your purchase
     `;
-  } else if (text == "1.3.1") {
+  } else if (text == "1*3*1") {
     response = `END You have requested to purchase an All Access Ticket for (GHc1000)
     You will recieve a mobile money prompt to confirm your purchase
     `;
-  } else if (text == "1.1.0") {
+  } else if (text == "1*1*0") {
     response = `CON Select The Type of Ticket
      1. Regular (GHc700)
      2. VIP (GHc1000)
      3. All Access (GHc500)
      `;
-  } else if (text == "1.2.0") {
+  } else if (text == "1*2*0") {
     response = `CON Select The Type of Ticket
      1. Regular (GHc700)
      2. VIP (GHc1000)
      3. All Access (GHc500)
      `;
-  } else if (text == "1.3.0") {
+  } else if (text == "1*3*0") {
     response = `CON Select The Type of Ticket
      1. Regular (GHc700)
      2. VIP (GHc1000)
