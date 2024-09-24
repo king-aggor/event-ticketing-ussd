@@ -50,19 +50,9 @@ app.post("/ussd", (req, res) => {
     response = `END You have requested to purchase an All Access Ticket for (GHc1000)
     You will recieve a mobile money prompt to confirm your purchase
     `;
-  } else if (text == "1*1*0") {
-    response = `CON Select The Type of Ticket
-     1. Regular (GHc700)
-     2. VIP (GHc1000)
-     3. All Access (GHc500)
-     `;
-  } else if (text == "1*2*0") {
-    response = `CON Select The Type of Ticket
-     1. Regular (GHc700)
-     2. VIP (GHc1000)
-     3. All Access (GHc500)
-     `;
-  } else if (text == "1*3*0") {
+  } else if (text == "1*1*0" || text == "1*2*0" || text == "1*3*0") {
+    req.body.text = "1"; // Refactor the value of text to '1'
+    text = "1"; // Update the local variable as well
     response = `CON Select The Type of Ticket
      1. Regular (GHc700)
      2. VIP (GHc1000)
