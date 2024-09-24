@@ -99,6 +99,7 @@ app.post("/ussd", async (req, res) => {
     res.set("Content-type:text/plain");
     res.send(response);
   } catch (err) {
+    console.log(err);
     res.set("Content-type:text/plain");
     res.send(err);
   }
