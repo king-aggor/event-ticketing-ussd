@@ -24,11 +24,50 @@ app.post("/ussd", (req, res) => {
   } else if (text == "2") {
     response = `END 420 Club Jungle Party is a stonner event party help in the jungle on the last friday of every month`;
   } else if (text == "1*1") {
-    response = `END You have requested to purchase a Regular ticket. You will recieve a propmt to make payment`;
+    response = `CON You have requested to purchase a Regular ticket(GHc700)
+    1. Confirm
+    0. Go Back
+    `;
   } else if (text == "1*2") {
-    response = `END You have requested to purchase a VIP ticket. You will recieve a propmt to make payment`;
+    response = `CON You have requested to purchase a VIP (GHc1000)
+    1. Confirm
+    0. Go Back
+    `;
   } else if (text == "1*3") {
-    response = `END You have requested to purchase an All Access ticket. You will recieve a propmt to make payment`;
+    response = `CON You have requested to purchase a All Access (GHc500)
+    1. Confirm
+    0. Go Back
+    `;
+  } else if (text == "1.1.1") {
+    response = `END You have requested to purchase a Regular Ticket for GHc700
+    You will recieve a mobile money prompt to confirm your purchase
+    `;
+  } else if (text == "1.2.1") {
+    response = `END You have requested to purchase a VIP Ticket for (GHc1000)
+    You will recieve a mobile money prompt to confirm your purchase
+    `;
+  } else if (text == "1.3.1") {
+    response = `END You have requested to purchase an All Access Ticket for (GHc1000)
+    You will recieve a mobile money prompt to confirm your purchase
+    `;
+  } else if (text == "1.1.0") {
+    response = `CON Select The Type of Ticket
+     1. Regular (GHc700)
+     2. VIP (GHc1000)
+     3. All Access (GHc500)
+     `;
+  } else if (text == "1.2.0") {
+    response = `CON Select The Type of Ticket
+     1. Regular (GHc700)
+     2. VIP (GHc1000)
+     3. All Access (GHc500)
+     `;
+  } else if (text == "1.3.0") {
+    response = `CON Select The Type of Ticket
+     1. Regular (GHc700)
+     2. VIP (GHc1000)
+     3. All Access (GHc500)
+     `;
   }
   res.set("Content-type:text/plain");
   res.send(response);
