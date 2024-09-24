@@ -2,6 +2,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 // const prisma = require("./prisma");
 const { PrismaClient } = require("@prisma/client");
+const payment = require("./payment");
 
 const app = express();
 const prisma = new PrismaClient();
@@ -39,59 +40,63 @@ app.post("/ussd", async (req, res) => {
     1. Confirm
     `;
     } else if (text == "1*1*1") {
+      const payment = await payment.makePayment(phoneNumber, 500.0);
+
       const ticketType = "Regular";
       const amount = 500.0;
       const paymentType = "momo";
-      const paymentRef = "efeefe";
-      await prisma.user.create({
-        data: {
-          phoneNumber,
-          sessionId,
-          serviceId,
-          ticketType,
-          amount,
-          paymentType,
-          paymentRef,
-        },
-      });
+      const paymentRef = payment.reference;
+      // await prisma.user.create({
+      //   data: {
+      //     phoneNumber,
+      //     sessionId,
+      //     serviceId,
+      //     ticketType,
+      //     amount,
+      //     paymentType,
+      //     paymentRef,
+      //   },
+      // });
       response = `END You have requested to purchase a Regular Ticket for GHc500
     You will recieve a mobile money prompt to confirm your purchase
     `;
     } else if (text == "1*2*1") {
+      const payment = await payment.makePayment(phoneNumber, 700.0);
       const ticketType = "VIP";
       const amount = 700.0;
       const paymentType = "momo";
-      const paymentRef = "efeefe";
-      await prisma.user.create({
-        data: {
-          phoneNumber,
-          sessionId,
-          serviceId,
-          ticketType,
-          amount,
-          paymentType,
-          paymentRef,
-        },
-      });
+      const paymentRef = payment.reference;
+      // await prisma.user.create({
+      //   data: {
+      //     phoneNumber,
+      //     sessionId,
+      //     serviceId,
+      //     ticketType,
+      //     amount,
+      //     paymentType,
+      //     paymentRef,
+      //   },
+      // });
       response = `END You have requested to purchase a VIP Ticket for (GHc700)
     You will recieve a mobile money prompt to confirm your purchase
     `;
     } else if (text == "1*3*1") {
+      const payment = await payment.makePayment(phoneNumber, 1000.0);
       const ticketType = "All Access";
       const amount = 1000.0;
       const paymentType = "momo";
-      const paymentRef = "efeefe";
-      await prisma.user.create({
-        data: {
-          phoneNumber,
-          sessionId,
-          serviceId,
-          ticketType,
-          amount,
-          paymentType,
-          paymentRef,
-        },
-      });
+      const paymentRef = payment.reference;
+      // await prisma.user.create({
+      //   data: {
+      //     phoneNumber,
+      //     sessionId,
+      //     serviceId,
+      //     ticketType,
+      //     amount,
+      //     paymentType,
+      //     paymentRef,
+      //   },
+      // });
       response = `END You have requested to purchase an All Access Ticket for (GHc1000)
     You will recieve a mobile money prompt to confirm your purchase
     `;
