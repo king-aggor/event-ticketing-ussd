@@ -26,12 +26,10 @@ app.post("/ussd", (req, res) => {
   } else if (text == "1*1") {
     response = `CON You have requested to purchase a Regular ticket(GHc700)
     1. Confirm
-    0. Go Back
     `;
   } else if (text == "1*2") {
     response = `CON You have requested to purchase a VIP (GHc1000)
     1. Confirm
-    0. Go Back
     `;
   } else if (text == "1*3") {
     response = `CON You have requested to purchase a All Access (GHc500)
