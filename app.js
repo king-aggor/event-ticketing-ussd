@@ -1,8 +1,10 @@
 const express = require("express");
 const bodyParser = require("body-parser");
-const prisma = require("./prisma");
+// const prisma = require("./prisma");
+const { PrismaClient } = require("@prisma/client");
 
 const app = express();
+const prisma = new PrismaClient();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
@@ -41,15 +43,17 @@ app.post("/ussd", async (req, res) => {
       const amount = 500.0;
       const paymentType = "momo";
       const paymentRef = "efeefe";
-      await prisma.createUser(
-        phoneNumber,
-        sessionId,
-        serviceId,
-        ticketType,
-        amount,
-        paymentType,
-        paymentRef
-      );
+      await prisma.user.create({
+        data: {
+          phoneNumber,
+          sessionId,
+          serviceId,
+          ticketType,
+          amount,
+          paymentType,
+          paymentRef,
+        },
+      });
       response = `END You have requested to purchase a Regular Ticket for GHc500
     You will recieve a mobile money prompt to confirm your purchase
     `;
@@ -58,15 +62,17 @@ app.post("/ussd", async (req, res) => {
       const amount = 700.0;
       const paymentType = "momo";
       const paymentRef = "efeefe";
-      await prisma.createUser(
-        phoneNumber,
-        sessionId,
-        serviceId,
-        ticketType,
-        amount,
-        paymentType,
-        paymentRef
-      );
+      await prisma.user.create({
+        data: {
+          phoneNumber,
+          sessionId,
+          serviceId,
+          ticketType,
+          amount,
+          paymentType,
+          paymentRef,
+        },
+      });
       response = `END You have requested to purchase a VIP Ticket for (GHc700)
     You will recieve a mobile money prompt to confirm your purchase
     `;
@@ -75,15 +81,17 @@ app.post("/ussd", async (req, res) => {
       const amount = 1000.0;
       const paymentType = "momo";
       const paymentRef = "efeefe";
-      await prisma.createUser(
-        phoneNumber,
-        sessionId,
-        serviceId,
-        ticketType,
-        amount,
-        paymentType,
-        paymentRef
-      );
+      await prisma.user.create({
+        data: {
+          phoneNumber,
+          sessionId,
+          serviceId,
+          ticketType,
+          amount,
+          paymentType,
+          paymentRef,
+        },
+      });
       response = `END You have requested to purchase an All Access Ticket for (GHc1000)
     You will recieve a mobile money prompt to confirm your purchase
     `;
