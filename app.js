@@ -46,7 +46,7 @@ app.post("/ussd", async (req, res) => {
       const amount = 500.0;
       const paymentType = "momo";
       if (paymentResponse.data.status === "success") {
-        const paymentRef = paymentResponse.reference;
+        const paymentRef = paymentResponse.data.reference;
         await prisma.user.create({
           data: {
             phoneNumber,
