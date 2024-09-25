@@ -28,78 +28,95 @@ app.post("/ussd", async (req, res) => {
     } else if (text == "2") {
       response = `END 420 Club Jungle Party is a stonner event party help in the jungle on the last friday of every month`;
     } else if (text == "1*1") {
-      response = `CON You have requested to purchase a Regular ticket(GHc500)
+      response = `CON You have requested to purchase a Regular Ticket. GHc500 will be deducted from your momo account
     1. Confirm
     `;
     } else if (text == "1*2") {
-      response = `CON You have requested to purchase a VIP (GHc700)
+      response = `CON You have requested to purchase a VIP Ticket. GHc700 will be deducted from your momo account
     1. Confirm
     `;
     } else if (text == "1*3") {
-      response = `CON You have requested to purchase a All Access (GHc1000)
+      response = `CON You have requested to purchase an All Access Ticket. GHc1000 will be deducted from your momo account
     1. Confirm
     `;
     } else if (text == "1*1*1") {
-      const payment = await payment.makePayment(phoneNumber, 500.0);
+      const paymentResponse = await payment.makePayment(phoneNumber, 500.0);
 
       const ticketType = "Regular";
       const amount = 500.0;
       const paymentType = "momo";
-      const paymentRef = payment.reference;
-      // await prisma.user.create({
-      //   data: {
-      //     phoneNumber,
-      //     sessionId,
-      //     serviceId,
-      //     ticketType,
-      //     amount,
-      //     paymentType,
-      //     paymentRef,
-      //   },
-      // });
-      response = `END You have requested to purchase a Regular Ticket for GHc500
+      if (paymentResponse.data.status === "success") {
+        const paymentRef = paymentResponse.reference;
+        await prisma.user.create({
+          data: {
+            phoneNumber,
+            sessionId,
+            serviceId,
+            ticketType,
+            amount,
+            paymentType,
+            paymentRef,
+          },
+        });
+        response = `END You have requested to purchase a Regular Ticket for GHc500
     You will recieve a mobile money prompt to confirm your purchase
     `;
+      } else {
+        response = `END Payment Failed`;
+      }
     } else if (text == "1*2*1") {
-      const payment = await payment.makePayment(phoneNumber, 700.0);
+      const paymentResponse = await payment.makePayment(phoneNumber, 700.0);
       const ticketType = "VIP";
       const amount = 700.0;
       const paymentType = "momo";
-      const paymentRef = payment.reference;
-      // await prisma.user.create({
-      //   data: {
-      //     phoneNumber,
-      //     sessionId,
-      //     serviceId,
-      //     ticketType,
-      //     amount,
-      //     paymentType,
-      //     paymentRef,
-      //   },
-      // });
-      response = `END You have requested to purchase a VIP Ticket for (GHc700)
+      if (paymentResponse.data.status === "success") {
+        const paymentRef = paymentResponse.data.reference;
+        await prisma.user.create({
+          data: {
+            phoneNumber,
+            sessionId,
+            serviceId,
+            ticketType,
+            amount,
+            paymentType,
+            paymentRef,
+          },
+        });
+        response = `END You have requested to purchase a VIP Ticket for (GHc700)
     You will recieve a mobile money prompt to confirm your purchase
     `;
+      } else {
+        response = `END Payment Failed`;
+      }
     } else if (text == "1*3*1") {
-      const payment = await payment.makePayment(phoneNumber, 1000.0);
+      const paymentResponse = await payment.makePayment(phoneNumber, 1000.0);
       const ticketType = "All Access";
       const amount = 1000.0;
       const paymentType = "momo";
-      const paymentRef = payment.reference;
-      // await prisma.user.create({
-      //   data: {
-      //     phoneNumber,
-      //     sessionId,
-      //     serviceId,
-      //     ticketType,
-      //     amount,
-      //     paymentType,
-      //     paymentRef,
-      //   },
-      // });
-      response = `END You have requested to purchase an All Access Ticket for (GHc1000)
+      if (paymentResponse.data.status === "success") {
+        const paymentRef = paymentResponse.data.reference;
+        await prisma.user.create({
+          data: {
+            phoneNumber,
+            sessionId,
+            serviceId,
+            ticketType,
+            amount,
+            paymentType,
+            paymentRef,
+          },
+        });
+        // console.log(paymentResponse);
+        response = `END You have requested to purchase an All Access Ticket for (GHc1000)
     You will recieve a mobile money prompt to confirm your purchase
     `;
+      } else {
+        response = `END Payment Failed`;
+      }
+      //   console.log(paymentResponse);
+      //   response = `END You have requested to purchase an All Access Ticket for (GHc1000)
+      // You will recieve a mobile money prompt to confirm your purchase
+      // `;
     }
     res.set("Content-type:text/plain");
     res.send(response);

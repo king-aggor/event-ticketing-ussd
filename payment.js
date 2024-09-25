@@ -1,4 +1,5 @@
 const axios = require("axios");
+require("dotenv").config();
 
 exports.makePayment = async (phoneNumber, amount) => {
   try {
@@ -6,12 +7,13 @@ exports.makePayment = async (phoneNumber, amount) => {
     const options = {
       headers: {
         Authorization: `Bearer ${secretKey}`,
+        "Content-Type": "application/json",
       },
     };
     const params = {
       phone: phoneNumber,
       amount: amount * 100,
-      email: "",
+      email: "emmanuelaggorea@gmail.com",
       currency: "GHS",
       mobile_money: {
         provider: "mtn",
@@ -23,8 +25,9 @@ exports.makePayment = async (phoneNumber, amount) => {
       params,
       options
     );
+    // console.log(response.data);
     return response.data;
   } catch (error) {
-    console.log(error);
+    console.log(error.response.data);
   }
 };
